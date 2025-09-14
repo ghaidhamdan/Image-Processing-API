@@ -6,19 +6,37 @@ const router = express.Router();
 router.get("/", async (req, res) => {
   try {
     const filename = req.query.filename as string;
-    const width = parseInt(req.query.width as string);
-    const height = parseInt(req.query.height as string);
+    const width = req.query.width as string;
+    const height = req.query.height as string;
 
-    if (!filename) return res.status(400).send("Missing filename");
-    if (!width || !height || width <= 0 || height <= 0)
-      return res.status(400).send("Invalid width or height");
+    if (!filename || !width || !height) {
+      return res
+        .status(400)
+        .send("Missing required parameters: filename, width, and height.");
+    }
 
-    const imagePath = await resizeImage(filename, width, height);
-    res.sendFile(imagePath);
+    const widthNum = parseInt(width, 10);
+    const heightNum = parseInt(height, 10);
+
+    if (isNaN(widthNum) || isNaN(heightNum)) {
+      return res.status(400).send("Width and height must be valid numbers.");
+    }
+
+    if (widthNum <= 0 || heightNum <= 0) {
+      return res.status(400).send("Width and height must be greater than 0.");
+    }
+
+    if (!/^[a-zA-Z0-9_-]+$/.test(filename)) {
+      return res.status(400).send("Invalid filename format.");
+    }
+
+    const imagePath = await resizeImage(filename, widthNum, heightNum);
+    return res.sendFile(imagePath);
   } catch (err: any) {
-    if (err.message.includes("Image not found"))
-      return res.status(404).send(err.message);
-    res.status(500).send(err.message);
+    if (err.message.includes("Image not found")) {
+      return res.status(404).send("Image not found.");
+    }
+    return res.status(500).send("Server error: " + err.message);
   }
 });
 

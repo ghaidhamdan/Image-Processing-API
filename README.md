@@ -1,4 +1,4 @@
-تمام، هاي نسخة جاهزة للـ **README.md** كاملة للمشروع، انسخها كما هي واحفظها في ملف باسم `README.md` في مجلد المشروع:
+
 
 ```markdown
 # Image Processing API
@@ -37,7 +37,7 @@ Image-Processing--API/
 
 ```bash
 git clone https://github.com/ghaidhamdan/Image-Processing-API.git
-cd Image-Processing--API
+cd Image-Processing-API
 ````
 
 
