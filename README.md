@@ -36,9 +36,10 @@ Image-Processing--API/
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/ghaidhamdan/Image-Processing--API.git
+git clone https://github.com/ghaidhamdan/Image-Processing-API.git
 cd Image-Processing--API
 ````
+
 
 ### 2. Install dependencies
 
